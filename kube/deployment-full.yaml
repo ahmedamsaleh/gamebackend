@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: zain-game
+    tier: backend
+    version: "1"
+  name: zain-game-backend
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: zain-game
+      tier: backend
+      version: "1"
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: zain-game
+        tier: backend
+        version: "1"
+    spec:
+      containers:
+      - image: zcloud.kw.zain.com:8500/test-developers/zain-game-backend:1.22
+        imagePullPolicy: IfNotPresent
+        name: backend
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 150Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

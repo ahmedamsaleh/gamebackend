@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: zain-game
+    tier: backend
+    version: "1"
+  name: zain-game-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zain-game
+      tier: backend
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: zain-game
+        tier: backend
+        version: "1"
+    spec:
+      containers:
+      - image: zcloud.kw.zain.com:8500/test-developers/zain-game-backend:1.22
+        imagePullPolicy: IfNotPresent
+        name: backend
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 150Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi

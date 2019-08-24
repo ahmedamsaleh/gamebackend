@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: lan-ingress
+  name: zain-game-backend
+spec:
+  rules:
+  - host: game.zcloud.kw.zain.com
+    http:
+      paths:
+      - backend:
+          serviceName: zain-game-backend
+          servicePort: 3000
+        path: /api
+  tls:
+  - hosts:
+    - game.zcloud.kw.zain.com
+    secretName: zain-game-ingress-cert
