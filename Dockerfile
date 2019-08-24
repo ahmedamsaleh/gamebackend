@@ -12,8 +12,7 @@ WORKDIR /usr/app
 RUN pwd; ls -al
 COPY --from=prod-builder /usr/app/node_modules ./node_modules
 RUN pwd; ls -al
-RUN cd ./node_modules; pwd
-RUN ls -al
+RUN cd ./node_modules; pwd; ls -al
 COPY src ./src
 RUN ls -al ./src
 # user node is created in base image with uid 1000
