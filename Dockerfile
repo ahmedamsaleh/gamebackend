@@ -4,7 +4,7 @@
 FROM node:10-alpine as prod-builder
 WORKDIR /usr/app
 COPY ["package*.json", "./"]
-RUN pwd; ls -al; npm install --production; ls -al
+RUN pwd; ls -al; npm install --production; ls -al; cd ./node_modules;pwd;ls -al
 
 # stage 3
 FROM node:10-alpine
